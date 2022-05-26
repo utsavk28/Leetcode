@@ -1,1 +1,1 @@
-# Data-Structures-Algorithms
+# LeetCode Solutions
