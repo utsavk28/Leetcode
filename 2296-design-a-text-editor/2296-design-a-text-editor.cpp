@@ -21,13 +21,7 @@ public:
         return count;
     }
     
-    string cursorLeft(int k) {
-        
-        while(k-- && !left.empty()) {
-            right.push(left.top());
-            left.pop();
-        }
-        
+    string getPrev10Char() {
         int count = min(10,(int)left.size());
         string ans = "";
         stack<char> temp;
@@ -44,26 +38,23 @@ public:
         return ans;
     }
     
+    string cursorLeft(int k) {
+        
+        while(k-- && !left.empty()) {
+            right.push(left.top());
+            left.pop();
+        }
+        
+        return getPrev10Char();
+    }
+    
     string cursorRight(int k) {
         while(k-- && !right.empty()) {
             left.push(right.top());
             right.pop();
         }
         
-        int count = min(10,(int)left.size());
-        string ans = "";
-        stack<char> temp;
-        while(count--) {
-            ans += left.top();
-            temp.push(left.top());
-            left.pop();
-        }
-        reverse(ans.begin(),ans.end());
-        while(!temp.empty()) {
-            left.push(temp.top());
-            temp.pop();
-        }
-        return ans;
+        return getPrev10Char();
     }
 };
 
