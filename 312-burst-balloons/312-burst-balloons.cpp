@@ -18,6 +18,18 @@ public:
         int i,j,k,n=nums.size();
         vector<vector<int>> dp(n,vector<int>(n,-1));
         
-        return util(1,n-2,nums,dp);
+        for(i=n-2;i>=1;i--) {
+            for(j=1;j<=n-2;j++) {
+                if(i>j)dp[i][j]=0;
+                else {
+                    dp[i][j] = INT_MIN;
+                    for(k=i;k<=j;k++) {
+                        dp[i][j] = max(dp[i][j],dp[i][k-1]+dp[k+1][j]+nums[k]*nums[i-1]*nums[j+1]);
+                    }
+                }
+            }
+        }
+        return dp[1][n-2]+2;
+        // return util(1,n-2,nums,dp);
     }
 };
