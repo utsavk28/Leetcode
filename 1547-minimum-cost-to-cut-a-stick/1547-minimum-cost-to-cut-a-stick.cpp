@@ -21,6 +21,19 @@ public:
         
         vector<vector<int>> dp(k+2,vector<int>(k+2,-1));
         
-        return util(1,k,cuts,dp);
+        for(i=k;i>=1;i--) {
+            for(j=1;j<=k;j++) {
+                if(i>j) dp[i][j]=0;
+                else {
+                    dp[i][j] = INT_MAX;
+                    for(int it=i;it<=j;it++) {
+                        dp[i][j] = min(dp[i][j],dp[i][it-1]+dp[it+1][j]+(cuts[j+1]-cuts[i-1]));
+                    }
+                }
+            }
+        }
+        
+        return dp[1][k]+2;
+        // return util(1,k,cuts,dp);
     }
 };
