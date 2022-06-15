@@ -29,9 +29,20 @@ public:
     
     int minCut(string s) {
         int i,j,k,n=s.size();
-        vector<int> dp(n,-1);
-        int ans = util(0,n,s,dp)-1;
-        // if(check(s)) ans=0;
-        return ans;
+        vector<int> dp(n+1,0);
+        // int ans = util(0,n,s,dp)-1;
+        
+        for(i=n-1;i>=0;i--) {
+            string temp = "";
+            dp[i] = INT_MAX-1;
+            for(j=i;j<n;j++) {
+                temp += s[j];
+                if(check(temp)) {
+                    dp[i] = min(dp[j+1]+1,dp[i]);
+                }
+            }
+        }
+        
+        return dp[0]-1;
     }
 };
