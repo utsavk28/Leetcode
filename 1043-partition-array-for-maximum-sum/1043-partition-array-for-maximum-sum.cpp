@@ -19,7 +19,22 @@ public:
     
     int maxSumAfterPartitioning(vector<int>& arr, int k) {
         int i,j,n=arr.size();
-        vector<int> dp(n,-1);
-        return util(arr,k,0,n,dp);
+        vector<int> dp(n+1,0);
+        for(i=n-1;i>=0;i--) {
+            int maxi=INT_MIN,ans=INT_MIN;
+            for(j=0;j<k;j++) {
+                int temp = j+i;
+                if(temp>=n) break;
+                maxi= max(maxi,arr[temp]);
+                ans = max(ans,maxi*(j+1)+dp[temp+1]);
+            }
+            dp[i] = ans;
+        }
+        
+        // for(auto it:dp) cout<<it<<" ";
+        // cout<<endl;
+        
+        return dp[0];
+        // return util(arr,k,0,n,dp);
     }
 };
